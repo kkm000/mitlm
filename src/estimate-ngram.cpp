@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
     opts.AddOption("s,smoothing", "Specify smoothing algorithms.", "ModKN", "ML, FixKN, FixModKN, FixKN#, KN, ModKN, KN#");
     opts.AddOption("wf,weight-features", "Specify n-gram weighting features.", NULL, "features-template");
     opts.AddOption("p,params", "Set initial model params.", NULL, "file");
-    opts.AddOption("oa,opt-alg", "Specify optimization algorithm.", "Powell", "Powell, LBFGS, LBFGSB");
+    opts.AddOption("oa,opt-alg", "Specify optimization algorithm.", "Powell", "Powell");
     opts.AddOption("op,opt-perp", "Tune params to minimize dev set perplexity.", NULL, "file");
     opts.AddOption("ow,opt-wer", "Tune params to minimize lattice word error rate.", NULL, "file");
     opts.AddOption("om,opt-margin", "Tune params to minimize lattice margin.", NULL, "file");
@@ -106,8 +106,7 @@ int main(int argc, char* argv[]) {
     opts.AddOption("ep,eval-perp", "Compute test set perplexity.", NULL, "files");
     opts.AddOption("ew,eval-wer", "Compute test set lattice word error rate.", NULL, "files");
     opts.AddOption("em,eval-margin", "Compute test set lattice margin.", NULL, "files");
-    if (!opts.ParseArguments(argc, (const char **)argv) ||
-        opts["help"] != NULL) {
+    if (argc == 1 || !opts.ParseArguments(argc, (const char **)argv) || opts["help"] != NULL) {
         std::cout << std::endl;
         opts.PrintHelp();
         return 1;

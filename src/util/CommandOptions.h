@@ -36,16 +36,9 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
-
-
-#ifdef HAVE_TR1_UNORDERED_MAP
-#include <tr1/unordered_map>
-using std::tr1::unordered_map;
-#else
 #include <unordered_map>
-using std::unordered_map;
-#endif
 
+using std::unordered_map;
 using std::string;
 using std::vector;
 

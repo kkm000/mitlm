@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mitlm", "mitlm.vcxproj", "{12586022-8CFA-4C0F-9A36-6B9710FD4759}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "estimate-ngram", "estimate-ngram.vcxproj", "{08EE9C7A-3BCD-4D9A-A9AA-1003FDD65DEF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "interpolate-ngram", "interpolate-ngram.vcxproj", "{019BAAA0-22AF-4123-B083-46B6178B6956}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "evaluate-ngram", "evaluate-ngram.vcxproj", "{C96FE678-7E3A-47CB-B93A-3423E3959CA2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12586022-8CFA-4C0F-9A36-6B9710FD4759}.Debug|x64.ActiveCfg = Debug|x64
+		{12586022-8CFA-4C0F-9A36-6B9710FD4759}.Debug|x64.Build.0 = Debug|x64
+		{12586022-8CFA-4C0F-9A36-6B9710FD4759}.Release|x64.ActiveCfg = Release|x64
+		{12586022-8CFA-4C0F-9A36-6B9710FD4759}.Release|x64.Build.0 = Release|x64
+		{08EE9C7A-3BCD-4D9A-A9AA-1003FDD65DEF}.Debug|x64.ActiveCfg = Debug|x64
+		{08EE9C7A-3BCD-4D9A-A9AA-1003FDD65DEF}.Debug|x64.Build.0 = Debug|x64
+		{08EE9C7A-3BCD-4D9A-A9AA-1003FDD65DEF}.Release|x64.ActiveCfg = Release|x64
+		{08EE9C7A-3BCD-4D9A-A9AA-1003FDD65DEF}.Release|x64.Build.0 = Release|x64
+		{019BAAA0-22AF-4123-B083-46B6178B6956}.Debug|x64.ActiveCfg = Debug|x64
+		{019BAAA0-22AF-4123-B083-46B6178B6956}.Debug|x64.Build.0 = Debug|x64
+		{019BAAA0-22AF-4123-B083-46B6178B6956}.Release|x64.ActiveCfg = Release|x64
+		{019BAAA0-22AF-4123-B083-46B6178B6956}.Release|x64.Build.0 = Release|x64
+		{C96FE678-7E3A-47CB-B93A-3423E3959CA2}.Debug|x64.ActiveCfg = Debug|x64
+		{C96FE678-7E3A-47CB-B93A-3423E3959CA2}.Debug|x64.Build.0 = Debug|x64
+		{C96FE678-7E3A-47CB-B93A-3423E3959CA2}.Release|x64.ActiveCfg = Release|x64
+		{C96FE678-7E3A-47CB-B93A-3423E3959CA2}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

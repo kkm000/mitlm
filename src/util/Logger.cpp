@@ -69,11 +69,10 @@ void Logger::Warn(int level, const char *fmt, ...) {
         va_list args;
 	if ( _err_file != NULL ) {
             va_start(args, fmt);
-            fprintf(_err_file, "\033[0;33m");
+            fprintf(_err_file, "WARNING: ");
             if (_timestamp) 
                 fprintf(_err_file, "%.3f\t", (double)(clock() - _startTime) / CLOCKS_PER_SEC);
             vfprintf(_err_file, fmt, args);
-            fprintf(_err_file, "\033[m");
             va_end(args);
             fflush(_err_file);
 	}
@@ -85,11 +84,10 @@ void Logger::Error(int level, const char *fmt, ...) {
         va_list args;
 	if ( _err_file != NULL ) {
             va_start(args, fmt);
-            fprintf(_err_file, "\033[1;31m");
+            fprintf(_err_file, "ERROR: ");
             if (_timestamp) 
                 fprintf(_err_file, "%.3f\t", (double)(clock() - _startTime) / CLOCKS_PER_SEC);
             vfprintf(_err_file, fmt, args);
-            fprintf(_err_file, "\033[m");
             va_end(args);
             fflush(_err_file);
 	}

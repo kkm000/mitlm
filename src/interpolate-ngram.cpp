@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
     opts.AddOption("tpo,tie-param-order", "Tie parameters across n-gram order.", "true", "boolean");
     opts.AddOption("tpl,tie-param-lm", "Tie parameters across LM components.", "false", "boolean");
     opts.AddOption("p,params", "Set initial model params.", NULL, "file");
-    opts.AddOption("oa,opt-alg", "Specify optimization algorithm.", "LBFGS", "Powell, LBFGS, LBFGSB");
+    opts.AddOption("oa,opt-alg", "Specify optimization algorithm.", "Powell", "Powell");
     opts.AddOption("op,opt-perp", "Tune params to minimize dev set perplexity.", NULL, "file");
     opts.AddOption("ow,opt-wer", "Tune params to minimize lattice word error rate.", NULL, "file");
     opts.AddOption("om,opt-margin", "Tune params to minimize lattice margin.", NULL, "file");
@@ -109,8 +109,7 @@ int main(int argc, char* argv[]) {
     opts.AddOption("ep,eval-perp", "Compute test set perplexity.", NULL, "files");
     opts.AddOption("ew,eval-wer", "Compute test set lattice word error rate.", NULL, "files");
     opts.AddOption("em,eval-margin", "Compute test set lattice margin.", NULL, "files");
-    if (!opts.ParseArguments(argc, (const char **)argv) ||
-        opts["help"] != NULL) {
+    if (argc == 1 || !opts.ParseArguments(argc, (const char **)argv) || opts["help"] != NULL) {
         std::cout << std::endl;
         opts.PrintHelp();
         return 1;
@@ -132,7 +131,7 @@ int main(int argc, char* argv[]) {
 
         vector<string> smoothings;
         vector<string> features;
-        bool           fromText = opts["text"];
+        bool           fromText = opts["text"] != nullptr;
         if (fromText)
             mitlm::trim_split(corpusFiles, opts["text"], ',');
         else

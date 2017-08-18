@@ -92,8 +92,7 @@ int main(int argc, char* argv[]) {
     opts.AddOption("ep,eval-perp", "Compute test set perplexity.", NULL, "files");
     opts.AddOption("ew,eval-wer", "Compute test set lattice word error rate.", NULL, "files");
     opts.AddOption("em,eval-margin", "Compute test set lattice margin.", NULL, "files");
-    if (!opts.ParseArguments(argc, (const char **)argv) ||
-        opts["help"] != NULL) {
+    if (argc == 1 || !opts.ParseArguments(argc, (const char **)argv) || opts["help"] != NULL) {
         std::cout << std::endl;
         opts.PrintHelp();
         return 1;

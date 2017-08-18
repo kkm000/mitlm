@@ -76,7 +76,7 @@ DenseVector<T>::DenseVector(const Range &r)
     : _length(r.length()), _data(0), _storage(0)
 {
     _allocate();
-    int v = r.beginIndex();
+    size_t v = r.beginIndex();
     for (Iterator p = begin(); p != end(); ++p, ++v)
         *p = v;
 }
@@ -384,15 +384,13 @@ template <typename T>
 template <typename Compare> 
 bool
 DenseVector<T>::sort(Compare compare) {
-    // Return true if vector has been modified.
-    // Perform quicksort only if array is not already sorted.
-    for (size_t i = 0; i < _length - 1; ++i) {
-        if (compare(_data[i], _data[i + 1]) > 0) {
-            std::sort(begin(), end(), compare);
-            return true;
-        }
-    }
+  // Return true if vector has been modified.
+  // Perform quicksort only if array is not already sorted.
+  if (std::is_sorted(begin(), end(), compare))
     return false;
+
+  std::sort(begin(), end(), compare);
+  return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -108,9 +108,10 @@ CommandOptions::PrintHelp() const {
         if (_options[i].type != NULL)
             cout << " <" << _options[i].type << ">";
 	cout <<  endl;
-        cout << "    " << _options[i].desc << endl;
+        cout << "    " << _options[i].desc;
         if (_options[i].defval != NULL)
-            cout << "      Default: " << _options[i].defval << endl;
+            cout << " Default: " << _options[i].defval;
+	cout <<  endl;
     }
     if (_footer.length() > 0 )
         cout << endl << _footer;

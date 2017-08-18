@@ -117,12 +117,6 @@ PerplexityOptimizer::Optimize(ParamVector &params, Optimization technique) {
     case PowellOptimization:
         minEntropy = MinimizePowell(func, params, numIter);
         break;
-    case LBFGSOptimization:
-        minEntropy = MinimizeLBFGS(func, params, numIter);
-        break;
-    case LBFGSBOptimization:
-        minEntropy = MinimizeLBFGSB(func, params, numIter);
-        break;
     default:
         throw std::runtime_error("Unsupported optimization technique.");
     }

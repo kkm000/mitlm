@@ -144,6 +144,6 @@ void ReadVector(FILE *in, DenseVector<T> &x);
 
 }
 
-#include "DenseVector.tcc"
+#include "DenseVector.inl.h"
 
 #endif // DENSEVECTOR_H

@@ -100,7 +100,7 @@ void KneserNeySmoothing::Initialize(NgramLM *pLM, size_t order) {
     for (size_t i = 1; i < _discParams.length(); i++) {
         _discParams[i] = (n[i] == 0) ? i : (i - (i+1) * Y * n[i+1] / n[i]);
         if (_discParams[i] < 0) _discParams[i] = 0;
-        if (_discParams[i] > i) _discParams[i] = i;
+        if (_discParams[i] > i) _discParams[i] = static_cast<Param>(i);
     }
 
     // Set default parameters.

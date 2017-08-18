@@ -107,19 +107,19 @@ struct OpMax {
 };
 
 struct OpAbs {
-    template <typename T> static T Eval(T v) { return fabs(v); }
+    template <typename T> static T Eval(T v) { return std::fabs(v); }
 };
 
 struct OpLog {
-    template <typename T> static T Eval(T v) { return log(v); }
+    template <typename T> static T Eval(T v) { return std::log(v); }
 };
 
 struct OpLog10 {
-    template <typename T> static T Eval(T v) { return log10(v); }
+    template <typename T> static T Eval(T v) { return std::log10(v); }
 };
 
 struct OpExp {
-    template <typename T> static T Eval(T v) { return exp(v); }
+    template <typename T> static T Eval(T v) { return std::exp(v); }
 };
 
 struct OpPow {

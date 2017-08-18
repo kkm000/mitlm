@@ -65,7 +65,7 @@ void Copy(InputIterator input, OutputIterator begin, const OutputIterator end) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-inline bool getline(FILE *file, char *buf, size_t bufSize) {
+inline bool getline(FILE *file, char *buf, int bufSize) {
     if (fgets(buf, bufSize, file)) {
         size_t len = strlen(buf) - 1;
         if (len >= bufSize)
@@ -77,7 +77,7 @@ inline bool getline(FILE *file, char *buf, size_t bufSize) {
         return false;
 }
 
-inline bool getline(FILE *file, char *buf, size_t bufSize, size_t *outLen) {
+inline bool getline(FILE *file, char *buf, int bufSize, size_t *outLen) {
     if (fgets(buf, bufSize, file)) {
         *outLen = strlen(buf) - 1;
         if (*outLen >= bufSize)

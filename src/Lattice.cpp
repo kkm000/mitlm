@@ -32,18 +32,15 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.   //
 ////////////////////////////////////////////////////////////////////////////
 
+#define _SCL_SECURE_NO_WARNINGS  // This one file has an unchecked use of std::copy().
+
 #include <vector>
 #include <queue>
 #include <limits>
 #include <algorithm>
 
-#ifdef HAVE_TR1_UNORDERED_MAP
-#include <tr1/unordered_map>
-using std::tr1::unordered_map;
-#else
 #include <unordered_map>
 using std::unordered_map;
-#endif
 
 #include "util/FastIO.h"
 #include "util/constants.h"
@@ -204,11 +201,11 @@ Lattice::UpdateWeights() {
     _arcWeights = _arcBaseWeights;
     for (size_t i = 0; i < _arcProbs.length(); ++i) {
         const ArcNgramIndex &e(_arcProbs[i]);
-        _arcWeights[e.arcIndex] -= std::log(_lm.probs(e.order)[e.ngramIndex]);
+        _arcWeights[e.arcIndex] -= static_cast<float>(std::log(_lm.probs(e.order)[e.ngramIndex]));
     }
     for (size_t i = 0; i < _arcBows.length(); ++i) {
         const ArcNgramIndex &e(_arcBows[i]);
-        _arcWeights[e.arcIndex] -= std::log(_lm.bows(e.order)[e.ngramIndex]);
+        _arcWeights[e.arcIndex] -= static_cast<float>(std::log(_lm.bows(e.order)[e.ngramIndex]));
     }
 }
 
@@ -593,7 +590,7 @@ Lattice::Deserialize(FILE *inFile) {
     ReadVector(inFile, _oraclePath);
     ReadVector(inFile, _arcProbs);
     ReadVector(inFile, _arcBows);
-    _oracleWER = ReadUInt64(inFile);
+    _oracleWER = (int)ReadUInt64(inFile);  // kkm: Why saving uint?
 
     // Compute _finalNode and _nodeArcs.
     assert(_arcStarts.length() > 0);

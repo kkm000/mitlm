@@ -48,7 +48,7 @@ namespace mitlm {
 //
 class NgramVector {
     friend class NgramModel;
-    friend class NgramIndexCompare;
+    friend struct NgramIndexCompare;
 
 protected:
     size_t              _length;

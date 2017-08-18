@@ -36,13 +36,7 @@
 #ifndef REFCOUNTER_H
 #define REFCOUNTER_H
 
-#ifdef HAVE_TR1_UNORDERED_MAP
-#include <tr1/unordered_map>
-using std::tr1::unordered_map;
-#else
 #include <unordered_map>
-using std::unordered_map;
-#endif
 
 namespace mitlm {
 
@@ -54,10 +48,10 @@ public:
     ~_RefCounter();
 
     template <typename T> void attach(const T *referenced)
-    { ++_map[reinterpret_cast<unsigned long>(referenced)]; }
+    { ++_map[reinterpret_cast<std::uintptr_t>(referenced)]; }
 
     template <typename T> bool detach(const T *referenced) {
-        unsigned long addr = reinterpret_cast<unsigned long>(referenced);
+      std::uintptr_t addr = reinterpret_cast<std::uintptr_t>(referenced);
         if (_map.find(addr)==_map.end())
             return true;
         if (--_map[addr] == -1) {
@@ -68,7 +62,7 @@ public:
     }
 
 private:
-    unordered_map<unsigned long, int> _map;
+    std::unordered_map<std::uintptr_t, int> _map;
 };
 
 extern _RefCounter RefCounter;

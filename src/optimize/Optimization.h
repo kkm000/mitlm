@@ -36,8 +36,6 @@
 #define OPTIMIZATION_H
 
 #include "Powell.h"
-#include "LBFGS.h"
-#include "LBFGSB.h"
 
 namespace mitlm {
 
@@ -46,17 +44,11 @@ namespace mitlm {
 enum Optimization {
     UnknownOptimization,
     PowellOptimization,
-    LBFGSOptimization,
-    LBFGSBOptimization
 };
 
 inline Optimization ToOptimization(const char *optimization) {
     if (strcmp(optimization, "Powell") == 0)
         return PowellOptimization;
-    if (strcmp(optimization, "LBFGS") == 0)
-        return LBFGSOptimization;
-    if (strcmp(optimization, "LBFGSB") == 0)
-        return LBFGSBOptimization;
     return UnknownOptimization;
 }
 

@@ -218,12 +218,6 @@ WordErrorRateOptimizer::OptimizeMargin(ParamVector &params,
     case PowellOptimization:
         minMargin = -MinimizePowell(func, params, numIter);
         break;
-    case LBFGSOptimization:
-        minMargin = -MinimizeLBFGS(func, params, numIter);
-        break;
-    case LBFGSBOptimization:
-        minMargin = -MinimizeLBFGSB(func, params, numIter);
-        break;
     default:
         throw std::runtime_error("Unsupported optimization technique.");
     }
@@ -252,12 +246,6 @@ WordErrorRateOptimizer::OptimizeWER(ParamVector &params,
     switch (technique) {
     case PowellOptimization:
         minWER = MinimizePowell(func, params, numIter);
-        break;
-    case LBFGSOptimization:
-        minWER = MinimizeLBFGS(func, params, numIter);
-        break;
-    case LBFGSBOptimization:
-        minWER = MinimizeLBFGSB(func, params, numIter);
         break;
     default:
         throw std::runtime_error("Unsupported optimization technique.");

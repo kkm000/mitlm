@@ -50,119 +50,11 @@
 
 namespace mitlm {
 
-#if ( defined(WIN32) || defined(_WIN32) ) && !defined(__CYGWIN__)
-
-static std::string win_argv_escape ( const std::string& s )
-{
-	std::ostringstream buffer;
-	buffer << '"';
-	for (std::string::const_iterator it = s.begin () ; it != s.end(); ++it)
-	{
-		// count backslashes
-		unsigned n = 0;
-		while (it != s.end () && *it == '\\')
-		{
-			it++;
-			n++;
-		}
-		if (it == s.end ())
-		{
-			// at the end of the string we must escape all backslashes,
-			// because we are going to append a '"'
-			n *= 2;
-			for ( unsigned i = 0; i < n; i++ )
-			{
-				buffer << '\\';
-			}
-			break;
-		}
-		else if (*it == '"')
-		{
-			// with '\'* + '"' we should escape all '\'
-			n *= 2;
-			// and '"'
-			n++;
-		}
-		for ( unsigned i = 0; i < n; i++ )
-		{
-			buffer << '\\';
-		}
-		buffer << *it;
-	}
-	buffer << '"';
-	return buffer.str();
-}
-
-static std::string cmd_exe_escape ( const std::string& s )
-{
-	std::ostringstream buffer;
-	for (std::string::const_iterator it = s.begin(); it != s.end(); it++)
-	{
-		if ( (*it == '"')
-		     || (*it == ' ')
-		     || (*it == '\t')
-		     || (*it == '\n')
-		     || (*it == '\v')
-		     || (*it == '(')
-		     || (*it == ')')
-		     || (*it == '%')
-		     || (*it == '!')
-		     || (*it == '^')
-		     || (*it == '<')
-		     || (*it == '>')
-		     || (*it == '&')
-		     || (*it == '|')
-			)
-		{
-			buffer << '^';
-		}
-		buffer << *it;
-	}
-	return buffer.str();
-}
-
-#  define popen_escape(s) cmd_exe_escape(s)
-#  define popen_escape2(s) cmd_exe_escape(win_argv_escape(s))
-#  define EXEC_TOKEN
-#else
-
-static std::string shell_escape(const std::string &s)
-{
-	std::ostringstream buffer;
-	buffer << "'";
-	for (std::string::const_iterator it = s.begin(); it != s.end(); it++)
-	{
-		if (*it == '\'')
-			buffer << "'\\''";
-		else
-			buffer << *it;
-	}
-	buffer << "'";
-	return buffer.str();
-}
-
-#  define popen_escape(s) shell_escape(s)
-#  define popen_escape2(s) shell_escape(s)
-#  define EXEC_TOKEN "exec "
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
-
 class ZFile {
 protected:
     FILE *      _file;
     std::string _filename;
     std::string _mode;
-
-    bool endsWith(const char *str, const char *suffix) {
-        size_t strLen = strlen(str);
-        size_t suffixLen = strlen(suffix);
-        return (suffixLen <= strLen) &&
-               (strncmp(&str[strLen - suffixLen], suffix, suffixLen) == 0);
-    }
-
-    FILE *processOpen(const std::string &command, const char *mode)
-    { return popen(command.c_str(), mode); }
 
 public:
     ZFile(const char *filename, const char *mode="r") {
@@ -184,21 +76,8 @@ public:
 
     void ReOpen() {
         const char *mode = _mode.c_str();
-        if (endsWith(_filename.c_str(), ".gz")) {
-            _file = (_mode[0] == 'r') ?
-                processOpen(std::string(EXEC_TOKEN "gzip -dc ") + popen_escape2(_filename), mode) :
-                processOpen(std::string(EXEC_TOKEN "gzip -c > ") + popen_escape(_filename), mode);
-        } else if (endsWith(_filename.c_str(), ".bz2")) {
-            _file = (_mode[0] == 'r') ?
-                processOpen(std::string(EXEC_TOKEN "bzip2 -dc ") + popen_escape2(_filename), mode) :
-                processOpen(std::string(EXEC_TOKEN "bzip2 -c > ") + popen_escape(_filename), mode);
-        } else if (endsWith(_filename.c_str(), ".zip")) {
-            _file = (_mode[0] == 'r') ?
-                processOpen(std::string(EXEC_TOKEN "unzip -c ") + popen_escape2(_filename), mode) :
-                processOpen(std::string(EXEC_TOKEN "zip -q > ") + popen_escape(_filename), mode);
-        } else { // Assume uncompressed
-            _file = fopen(_filename.c_str(), mode);
-        }
+        // Assume uncompressed
+        _file = fopen(_filename.c_str(), mode);
         if (_file == NULL)
             throw std::runtime_error("Cannot open file");
     }
